@@ -74,14 +74,14 @@ function bb::rsync() {
 
 
 # Get the list of MySQL databases in a server.
-# mysql and information_schema will be omitted.
+# mysql and {performance,information}_schema will be omitted
 # bb::mysql_fetch_databases host user pass
 function bb::mysql_fetch_databases() {
 	local host="$1"
 	local user="$2"
 	local pass="$3"
 
-	echo "show databases;" | mysql -h$host -u$user -p$pass -N | grep -Ev '^(mysql|information_schema)$'
+	echo "show databases;" | mysql -h$host -u$user -p$pass -N | grep -Ev '^(mysql|performance_schema|information_schema)$'
 }
 
 
