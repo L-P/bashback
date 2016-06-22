@@ -93,7 +93,7 @@ function bb::mysql_dump_schema() {
 	options="$options --single-transaction --flush-logs --dump-date --routines --events -d"
 
 	for db in $(bb::mysql_fetch_databases "$host" "$user" "$pass"); do
-		local -r local="$db.schema_$(bb::date).sql"
+		local -r local="${db}.schema_$(bb::date).sql"
 		bb::log "Dumping schema of $host:$db"
 		mysqldump -h"$host" -u"$user" -p"$pass" $options "$db" > "$local"
 
@@ -123,7 +123,7 @@ function bb::mysql_dump_data() {
 	options="$options --single-transaction --flush-logs --dump-date --routines --events -q -t"
 
 	for db in $(bb::mysql_fetch_databases "$host" "$user" "$pass"); do
-		local -r local="$db.data_$(bb::date).sql"
+		local -r local="${db}.data_$(bb::date).sql"
 		bb::log "Dumping data of $host:$db"
 		mysqldump -h"$host" -u"$user" -p"$pass" $options "$db" > "$local"
 
@@ -140,7 +140,7 @@ function bb::mysql_dump_data() {
 
 # Dumps a whole MySQL server.
 # bb::mysql_dump host user pass local_dir
-function bb::mysql_dump(){
+function bb::mysql_dump() {
 	local -r host="$1"
 	local -r user="$2"
 	local -r pass="$3"
